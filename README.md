@@ -25,7 +25,7 @@ pip install pandas pandarallel
 To use the **CSV to VCF Converter**, follow the provided usage instructions:
 
 ```bash
-python csv_to_vcf.py csv_file cols_info_file output_file_name
+csv_to_vcf.sh <csv_file> <col_info_file> <output_file>
 ```
 
 - `csv_file`: The input CSV file containing your data. This should be the output of Roni's pipeline.
@@ -34,16 +34,13 @@ python csv_to_vcf.py csv_file cols_info_file output_file_name
 
 - `output_file_name`: The name of the output VCF file where the converted data will be saved.
 
-## Example
+### Output
 
-Here is an example of how to use the script:
+The following output files will be generated:
 
-```bash
-python csv_to_vcf.py input_data.csv col_info.csv  output_data.vcf
-```
+1. `<output_file>.gz`: The VCF file in compressed format.
 
-This command will take the data from `input_data.csv`, use the column info defined in `col_info.csv `, and save the converted data to `output_data.vcf`.
-
+2. `<output_file>.gz.tbi`: The index file for the VCF. This file is necessary to view the VCF data in an IGV (Integrative Genomics Viewer) browser.
 
 ## License
 

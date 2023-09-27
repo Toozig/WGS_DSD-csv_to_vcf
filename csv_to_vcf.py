@@ -51,7 +51,6 @@ def df_to_vcf(file,info_col):
     res_df['QUAL'] = 0
     res_df['FILTER'] = df.FILTER.replace(' ','.')
     INFO_cols = info_df[info_df.type == 'INFO'].ID
-    INFO_cols = INFO_cols[INFO_cols.isin(df.columns)]
     df.loc[:,INFO_cols] = df[INFO_cols].replace(' ','.').fillna('.')
     res_df['INFO'] = df.parallel_apply(lambda x: ';'.join([f'{i}={x[i]}' for i in INFO_cols]),axis=1)
     FORMAT_cols = info_df[info_df.type == 'FORMAT'].ID
@@ -77,7 +76,6 @@ def main(file, col_info_file, output_name):
     info_s =create_info_lines(file, col_info_file)
     print("Prepare data")
     vcf_df = df_to_vcf(file, col_info_file).T.reset_index().T
-    output_name = file.replace('csv','vcf').split('/')[-1]
     vcf_df = pd.concat([info_s,vcf_df])
     print("saving")
     vcf_df.to_csv(output_name,sep='\t',index=False,header=None)
